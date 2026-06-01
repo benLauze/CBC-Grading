@@ -1,18 +1,18 @@
-#This is intended to be used AFTER the dataset is identified by the trained model
-#This can successfully get the card number if it is in the fraction format (i.e. 001/165)
-#Currently does not work for promos - Note: Promos before scarlet-violet are in similar formats: (XY01 for xy-promos, SWSH001 for sword-shield promos, etc.)
-#Debating whether to have it identify the PROMO first and do the set after in a separate function, or identify the SET from the above format (XY01 being xy-promos)
+# This is intended to be used AFTER the dataset is identified by the trained model
+# This can successfully get the card number if it is in the fraction format (i.e. 001/165)
+# Currently does not work for promos - Note: Promos before scarlet-violet are in similar formats: (XY01 for xy-promos, SWSH001 for sword-shield promos, etc.)
+# Debating whether to have it identify the PROMO first and do the set after in a separate function, or identify the SET from the above format (XY01 being xy-promos)
 
 import cv2
 import easyocr
 import re
 
-#Enter specific card here
+# Enter specific card here
 imagePath = r"Dataset_AllCards\Pokemon TCG\Pokemon TCG\151\sv3-5_en_001_std.jpg"
 
 ocrReader = easyocr.Reader(["en"])
 
-
+# Crops the bottom strip of the card where the card number is usually located
 def cropCardNumberArea(image):
     height, width, _ = image.shape
 
@@ -23,7 +23,7 @@ def cropCardNumberArea(image):
 
     return image[y1:y2, x1:x2]
 
-
+# Converts the cropped image to grayscale, enlarges it, and reads text with OCR
 def readCardNumber(croppedImage):
     grayImage = cv2.cvtColor(croppedImage, cv2.COLOR_BGR2GRAY)
     grayImage = cv2.resize(grayImage, None, fx=3, fy=3)
@@ -41,7 +41,7 @@ def readCardNumber(croppedImage):
 
     return "Card number not found"
 
-
+# Runs the full test
 def main():
     image = cv2.imread(imagePath)
 
