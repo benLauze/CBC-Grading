@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "CBC Grading",
+    "slug": "cbc-grading",
+    "version": "1.0.0",
+    "sdkVersion": "54.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#0D0F1A"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.cbcgrading.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "CBC Grading needs camera access to scan your Pokémon cards for grading."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0D0F1A"
+      },
+      "package": "com.cbcgrading.app",
+      "permissions": ["android.permission.CAMERA"]
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "CBC Grading needs camera access to scan your Pokémon cards for grading."
+        }
+      ]
+    ]
+  }
+}
