@@ -1,0 +1,161 @@
+=== Reference build report (pokemontcg.io) ===
+
+TEST_MODE: False  TEST_SETS: ['jungle', 'base-set', 'xy-promos']
+Dataset folders found: 194
+Folders processed this run: 161
+Dataset images seen (processed sets): 20284
+Cards paired (image pairs created): 20088
+API images downloaded: 20086
+
+--- Files that did not pair (196) ---
+  [black-bolt] zsv10-5_en_080_std.jpg: no card with number 080
+  [black-white-promos] bwbsp_en_097_std.jpg: no card with number 097
+  [burning-shadows] en_US-SM3-SV15-seviper-yaa-015ya.jpg: no card with number SV15
+  [burning-shadows] en_US-SM3-SV34-ralts-yaa-034ya.jpg: no card with number SV34
+  [burning-shadows] en_US-SM3-SV35-kirlia-yaa-035ya.jpg: no card with number SV35
+  [burning-shadows] en_US-SM3-SV36-diancie-yaa-036ya.jpg: no card with number SV36
+  [burning-shadows] en_US-SM3-SV4-wimpod-yaa-004ya.jpg: no card with number SV4
+  [burning-shadows] en_US-SM3-SV43-noibat-yaa-043ya.jpg: no card with number SV43
+  [burning-shadows] en_US-SM3-SV48-golisopod_gx-yaa-048ya.jpg: no card with number SV48
+  [burning-shadows] en_US-SM3-SV49-charizard_gx-yaa-049ya.jpg: no card with number SV49
+  [burning-shadows] en_US-SM3-SV50-ho_oh_gx-yaa-050ya.jpg: no card with number SV50
+  [burning-shadows] en_US-SM3-SV70-darkrai_gx-yaa-070ya.jpg: no card with number SV70
+  [burning-shadows] en_US-SM3-SV75-gardevoir_gx-yaa-075ya.jpg: no card with number SV75
+  [burning-shadows] en_US-SM3-SV78-noivern_gx-yaa-078ya.jpg: no card with number SV78
+  [burning-shadows] en_US-SM3-SV84-guzma-yaa-084ya.jpg: no card with number SV84
+  [burning-shadows] en_US-SM3-SV91-tapu_bulu_gx-yaa-091ya.jpg: no card with number SV91
+  [burning-shadows] en_US-SM3-SV92-tapu_fini_gx-yaa-092ya.jpg: no card with number SV92
+  [celebrations] en_US-Ann25thR-054-mewtwo_ex.jpg: no card with number 054
+  [celebrations] en_US-Ann25thR-060-tapu_lele_gx.jpg: no card with number 060
+  [celebrations] en_US-Ann25thR-066-shining_magikarp.jpg: no card with number 066
+  [celebrations] en_US-Ann25thR-073-imposter_professor_oak.jpg: no card with number 073
+  [celebrations] en_US-Ann25thR-076-m_rayquaza_ex.jpg: no card with number 076
+  [celebrations] en_US-Ann25thR-086-rockets_admin.jpg: no card with number 086
+  [celebrations] en_US-Ann25thR-088-mew_ex.jpg: no card with number 088
+  [celebrations] en_US-Ann25thR-093-gardevoir_ex.jpg: no card with number 093
+  [celebrations] en_US-Ann25thR-097-xerneas_ex.jpg: no card with number 097
+  [celebrations] en_US-Ann25thR-107-donphan.jpg: no card with number 107
+  [celebrations] en_US-Ann25thR-109-luxray_gl.jpg: no card with number 109
+  [celebrations] en_US-Ann25thR-113-reshiram.jpg: no card with number 113
+  [celebrations] en_US-Ann25thR-114-zekrom.jpg: no card with number 114
+  [celebrations] en_US-Ann25thR-145-garchomp_c.jpg: no card with number 145
+  [celestial-storm] en_US-SM7-SV1-scyther-yaa-001ya.jpg: no card with number SV1
+  [celestial-storm] en_US-SM7-SV13-voltorb-yaa-013ya.jpg: no card with number SV13
+  [celestial-storm] en_US-SM7-SV16-shuppet-yaa-016ya.jpg: no card with number SV16
+  [celestial-storm] en_US-SM7-SV32-celesteela-yaa-032ya.jpg: no card with number SV32
+  [celestial-storm] en_US-SM7-SV33-kartana-yaa-033ya.jpg: no card with number SV33
+  [celestial-storm] en_US-SM7-SV54-articuno_gx-yaa-054ya.jpg: no card with number SV54
+  [celestial-storm] en_US-SM7-SV57-electrode_gx-yaa-057ya.jpg: no card with number SV57
+  [celestial-storm] en_US-SM7-SV61-banette_gx-yaa-061ya.jpg: no card with number SV61
+  [celestial-storm] en_US-SM7-SV72-scizor_gx-yaa-072ya.jpg: no card with number SV72
+  [celestial-storm] en_US-SM7-SV74-stakataka_gx-yaa-074ya.jpg: no card with number SV74
+  [celestial-storm] en_US-SM7-SV83-fisherman-yaa-083ya.jpg: no card with number SV83
+  [celestial-storm] en_US-SM7-SV85-hiker-yaa-085ya.jpg: no card with number SV85
+  [celestial-storm] en_US-SM7-SV90-shrine_of_punishment-yaa-090ya.jpg: no card with number SV90
+  [crimson-invasion] en_US-SM4-SV45-type_null-yaa-045ya.jpg: no card with number SV45
+  [crimson-invasion] en_US-SM4-SV62-nihilego_gx-yaa-062ya.jpg: no card with number SV62
+  [crimson-invasion] en_US-SM4-SV68-buzzwole_gx-yaa-068ya.jpg: no card with number SV68
+  [crimson-invasion] en_US-SM4-SV71-guzzlord_gx-yaa-071ya.jpg: no card with number SV71
+  [crimson-invasion] en_US-SM4-SV73-kartana_gx-yaa-073ya.jpg: no card with number SV73
+  [crimson-invasion] en_US-SM4-SV79-silvally_gx-yaa-079ya.jpg: no card with number SV79
+  [deoxys] dx009-jirachi.jpg: could not parse number
+  [dragon-majesty] en_US-DM-060a-fiery_flint-yaa.jpg.jpg: no card with number 060A
+  [dragon-majesty] en_US-DM-SV10-quagsire-yaa-010ya.jpg: no card with number SV10
+  [dragon-majesty] en_US-DM-SV37-altaria-yaa-037ya.jpg: no card with number SV37
+  [dragon-majesty] en_US-DM-SV42-swablu-yaa-042ya.jpg: no card with number SV42
+  [dragon-majesty] en_US-DM-SV51-reshiram_gx-yaa-051ya.jpg: no card with number SV51
+  [dragon-majesty] en_US-DM-SV6-charmander-yaa-006ya.jpg: no card with number SV6
+  [dragon-majesty] en_US-DM-SV7-charmeleon-yaa-007ya.jpg: no card with number SV7
+  [dragon-majesty] en_US-DM-SV77-altaria_gx-yaa-077ya.jpg: no card with number SV77
+  [dragon-majesty] en_US-DM-SV9-wooper-yaa-009ya.jpg: no card with number SV9
+  [forbidden-light] en_US-SM6-SV11-froakie-yaa-011ya.jpg: no card with number SV11
+  [forbidden-light] en_US-SM6-SV12-frogadier-yaa-012ya.jpg: no card with number SV12
+  [forbidden-light] en_US-SM6-SV14-xurkitree-yaa-014ya.jpg: no card with number SV14
+  [forbidden-light] en_US-SM6-SV17-inkay-yaa-017ya.jpg: no card with number SV17
+  [forbidden-light] en_US-SM6-SV18-malamar-yaa-018ya.jpg: no card with number SV18
+  [forbidden-light] en_US-SM6-SV19-poipole-yaa-019ya.jpg: no card with number SV19
+  [forbidden-light] en_US-SM6-SV23-rockruff-yaa-023ya.jpg: no card with number SV23
+  [forbidden-light] en_US-SM6-SV24-buzzwole-yaa-024ya.jpg: no card with number SV24
+  [forbidden-light] en_US-SM6-SV26-guzzlord-yaa-026ya.jpg: no card with number SV26
+  [forbidden-light] en_US-SM6-SV5-pheromosa-yaa-005ya.jpg: no card with number SV5
+  [forbidden-light] en_US-SM6-SV56-greninja_gx-yaa-056ya.jpg: no card with number SV56
+  [forbidden-light] en_US-SM6-SV63-naganadel_gx-yaa-063ya.jpg: no card with number SV63
+  [forbidden-light] en_US-SM6-SV64-lucario_gx-yaa-064ya.jpg: no card with number SV64
+  [forbidden-light] en_US-SM6-SV65-zygarde_gx-yaa-065ya.jpg: no card with number SV65
+  [forbidden-light] en_US-SM6-SV86-lady-yaa-086ya.jpg: no card with number SV86
+  [guardians-rising] en_US-SM2-SV20-sudowoodo-yaa-020ya.jpg: no card with number SV20
+  [guardians-rising] en_US-SM2-SV30-beldum-yaa-030ya.jpg: no card with number SV30
+  [guardians-rising] en_US-SM2-SV31-metang-yaa-031ya.jpg: no card with number SV31
+  [guardians-rising] en_US-SM2-SV47-decidueye_gx-yaa-047ya.jpg: no card with number SV47
+  [guardians-rising] en_US-SM2-SV52-turtonator_gx-yaa-052ya.jpg: no card with number SV52
+  [guardians-rising] en_US-SM2-SV53-alolan_ninetales_gx-yaa-053ya.jpg: no card with number SV53
+  [guardians-rising] en_US-SM2-SV66-lycanroc_gx-yaa-066ya.jpg: no card with number SV66
+  [guardians-rising] en_US-SM2-SV76-sylveon_gx-yaa-076ya.jpg: no card with number SV76
+  [guardians-rising] en_US-SM2-SV8-alolan_vulpix-yaa-008ya.jpg: no card with number SV8
+  [guardians-rising] en_US-SM2-SV80-drampa_gx-yaa-080ya.jpg: no card with number SV80
+  [guardians-rising] en_US-SM2-SV87-aether_paradise_conservation_area-yaa-087ya.jpg: no card with number SV87
+  [guardians-rising] en_US-SM2-SV88-brooklet_hill-yaa-088ya.jpg: no card with number SV88
+  [guardians-rising] en_US-SM2-SV93-tapu_koko_gx-yaa-093ya.jpg: no card with number SV93
+  [guardians-rising] en_US-SM2-SV94-tapu_lele_gx-yaa-094ya.jpg: no card with number SV94
+  [heartgold-soulsilver] en_US-HGSS1-One-alph_lithograph.jpg: could not parse number
+  [hidden-legends] hl092-stevens_advice.jpg: could not parse number
+  [lost-thunder] en_US-SM8-SV81-aether_foundation_employee-yaa-081ya.jpg: no card with number SV81
+  [majestic-dawn] pachirisu43.jpg: could not parse number
+  [rising-rivals] charons-choice-rising-rivals-rr-rt6.jpg: could not parse number
+  [rising-rivals] fan-rotom-rising-rivals-rr-rt1.jpg: could not parse number
+  [rising-rivals] frost-rotom-rising-rivals-rr-rt2.jpg: could not parse number
+  [rising-rivals] heat-rotom-rising-rivals-rr-rt3.jpg: could not parse number
+  [rising-rivals] mow-rotom-rising-rivals-rr-rt4.jpg: could not parse number
+  [rising-rivals] wash-rotom-rising-rivals-rr-rt5.jpg: could not parse number
+  [ruby-sapphire] rs095-rainbow_energy.jpg: could not parse number
+  [ruby-sapphire] rs105-fighting_energy.jpg: could not parse number
+  [ruby-sapphire] rs107-psychic_energy.jpg: could not parse number
+  [sandstorm] ss088-wobbuffet.jpg: could not parse number
+  [scarlet-violet-promos] en_US-Promo_SV-SV001-sprigatito.jpg: no card with number SV001
+  [scarlet-violet-promos] en_US-Promo_SV-SV002-fuecoco.jpg: no card with number SV002
+  [scarlet-violet-promos] en_US-Promo_SV-SV003-quaxly.jpg: no card with number SV003
+  [scarlet-violet-promos] svbsp_en_190_std.jpg: no card with number 190
+  [scarlet-violet-promos] svbsp_en_191_std.jpg: no card with number 191
+  [scarlet-violet-promos] svbsp_en_192_std.jpg: no card with number 192
+  [scarlet-violet-promos] svbsp_en_204_std.jpg: no card with number 204
+  [scarlet-violet-promos] svbsp_en_205_std.jpg: no card with number 205
+  [scarlet-violet-promos] svbsp_en_208_std.jpg: no card with number 208
+  [scarlet-violet-promos] svbsp_en_213_std.jpg: no card with number 213
+  [scarlet-violet-promos] svbsp_en_214_std.jpg: no card with number 214
+  [scarlet-violet-promos] svbsp_en_215_std.jpg: no card with number 215
+  [scarlet-violet-promos] svbsp_en_216_std.jpg: no card with number 216
+  [scarlet-violet-promos] svbsp_en_217_std.jpg: no card with number 217
+  [scarlet-violet-promos] svbsp_en_218_std.jpg: no card with number 218
+  [scarlet-violet-promos] svbsp_en_219_std.jpg: no card with number 219
+  [scarlet-violet-promos] svbsp_en_220_std.jpg: no card with number 220
+  [scarlet-violet-promos] svbsp_en_221_std.jpg: no card with number 221
+  [scarlet-violet-promos] svbsp_en_222_std.jpg: no card with number 222
+  [scarlet-violet-promos] svbsp_en_223_std.jpg: no card with number 223
+  [scarlet-violet-promos] svbsp_en_224_std.jpg: no card with number 224
+  [scarlet-violet-promos] SVP_209_R_EN.png: no card with number 209
+  [scarlet-violet-promos] SVP_210_R_EN.png: no card with number 210
+  [scarlet-violet-promos] SVP_211_R_EN.png: no card with number 211
+  [scarlet-violet-promos] SVP_212_R_EN.png: no card with number 212
+  [shining-legends] en_US-SL-068a-ultra_ball-yaa.jpg: no card with number 068A
+  [shining-legends] en_US-SL-SV25-zorua-yaa-025ya.jpg: no card with number SV25
+  [shining-legends] en_US-SL-SV59-mewtwo_gx-yaa-059ya.jpg: no card with number SV59
+  [sun-moon] en_US-SM1-SV2-rowlet-yaa-002ya.jpg: no card with number SV2
+  [sun-moon] en_US-SM1-SV3-dartrix-yaa-003ya.jpg: no card with number SV3
+  [sun-moon] en_US-SM1-SV41-eevee-yaa-041ya.jpg: no card with number SV41
+  [sun-moon] en_US-SM1-SV44-oranguru-yaa-044ya.jpg: no card with number SV44
+  [sun-moon] en_US-SM1-SV60-espeon_gx-yaa-060ya.jpg: no card with number SV60
+  [sun-moon] en_US-SM1-SV69-umbreon_gx-yaa-069ya.jpg: no card with number SV69
+  [sun-moon-promos] smbsp_en_004_std.jpg: no card with number 004
+  [sword-shield-promos] en_US-Promo_SWSH-SWSH300-unown_v.jpg: no card with number SWSH300
+  [sword-shield-promos] en_US-Promo_SWSH-SWSH301-lugia_v.jpg: no card with number SWSH301
+  [sword-shield-promos] swshbsp_en_299_std.jpg: no card with number 299
+  [team-up] en_US-SM9-SV67-lycanroc_gx-yaa-067ya.jpg: no card with number SV67
+  [triumphant] en_US-HGSS4-Four-alph_lithograph.jpg: could not parse number
+  [ultra-prism] en_US-SM5-SV21-riolu-yaa-021ya.jpg: no card with number SV21
+  [ultra-prism] en_US-SM5-SV22-lucario-yaa-022ya.jpg: no card with number SV22
+  [ultra-prism] en_US-SM5-SV27-magnemite-yaa-027ya.jpg: no card with number SV27
+  [ultra-prism] en_US-SM5-SV28-magneton-yaa-028ya.jpg: no card with number SV28
+  [ultra-prism] en_US-SM5-SV29-magnezone-yaa-029ya.jpg: no card with number SV29
+  [ultra-prism] en_US-SM5-SV38-gible-yaa-038ya.jpg: no card with number SV38
+  [ultra-prism] en_US-SM5-SV39-gabite-yaa-039ya.jpg: no card with number SV39
+  ... and 46 more

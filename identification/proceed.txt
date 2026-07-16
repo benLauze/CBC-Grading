@@ -1,0 +1,47 @@
+START HERE
+
+The plan: build a server that loads the model + index once, then answers
+"what card is this" for every photo the app sends it.
+
+What it needs to do, concretely:
+
+- Load Models/encoder_best.keras, Reference/card_index_embeddings.npy, and
+  Reference/card_index_metadata.csv ONE TIME when the server starts. Not
+  per request - keep them in memory, that's the whole point.
+
+- Expose an endpoint (something like POST /identify) that takes a photo
+  upload from the app.
+
+- For each photo that comes in: resize it to 224x224, run it through
+  ResNet50's specific preprocessing (NOT a plain 0-1 normalize - this has
+  to match exactly how the model was trained or nothing will match right),
+  then run it through the model to get a 256-number fingerprint.
+
+- Compare that fingerprint against every row in card_index_embeddings.npy.
+  The embeddings are already unit-length so this is just a dot product, no
+  fancy similarity math needed.
+
+- Take the top few matches (not just #1), look up their info in
+  card_index_metadata.csv (same row order as the embeddings), and send it
+  back to the app as JSON - card name, set, number, rarity, and how
+  confident the match is.
+
+The three files:
+
+Models/encoder_best.keras
+  the trained model, turns a card photo into a 256-number fingerprint
+
+Reference/card_index_embeddings.npy
+  the fingerprint for every card we have, 20,863 of them
+
+Reference/card_index_metadata.csv
+  what each fingerprint actually is (name, set, number, rarity) - same
+  order as the embeddings file above, row for row
+
+Full step by step pseudocode, the exact preprocessing math, and a
+suggested JSON response format are all in
+Scripts/identifycard_pseudocode.txt - read that before writing any code,
+it covers the details that are easy to get subtly wrong.
+
+Everything else in this repo was just used to build these three files -
+you shouldn't need to touch any of it.

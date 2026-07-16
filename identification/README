@@ -1,0 +1,68 @@
+POKEMON CARD IDENTIFICATION
+
+Identifies a Pokemon card from a photo. Instead of trying to classify which
+set a card is from, it turns the card image into a numeric "fingerprint"
+and finds the closest match out of everything we've indexed - basically
+how real card-scanning apps do it.
+
+
+CORE PIPELINE
+
+Three scripts build the system, run in this order:
+
+Scripts/build_reference.py - Stage 1, matches our card images to the Pokemon TCG API, downloads the official images + metadata, writes reference_manifest.csv
+
+Scripts/train_embedding.py - Stage 2, trains the embedding model (ResNet-50 + contrastive learning) that turns a card image into a 256-number fingerprint
+
+Scripts/build_index.py - Stage 3, runs every card through the trained model and builds the searchable fingerprint index
+
+Each one feeds into the next, so run them in order. Stage 1 and 3 need
+Card_Dataset/ (our card images - not in this repo, see Setup below).
+
+
+SETUP
+
+pip install tensorflow requests numpy
+
+Pokemon TCG API key goes in Scripts/key.txt (just the key, one line) or set
+POKEMONTCG_API_KEY as an environment variable. Not tracked in git.
+
+Card_Dataset/ (our card images from Kaggle)
+
+PROJECT STRUCTURE
+
+Scripts/build_reference.py - Stage 1
+Scripts/train_embedding.py - Stage 2
+Scripts/build_index.py - Stage 3
+Scripts/identifycard_pseudocode.txt - Stage 4 logic spec
+
+Reference/reference_manifest.csv - Stage 1 output, matched cards + metadata
+Reference/match_report.txt - Stage 1 output, pairing results summary
+Reference/api_sets.json - Stage 1 output, raw set catalog from the API
+Reference/card_index_embeddings.npy - Stage 3 output, fingerprint for every card
+Reference/card_index_metadata.csv - Stage 3 output, identity info, same order as the embeddings
+
+Models/encoder_best.keras - Stage 2 output, the trained model
+
+aug_diagnostic/ - proof the augmentation is actually creating different
+views per card, not just re-encoding the same image, see
+_ALL_CARDS_overview.png
+
+
+CURRENT STATUS
+
+Stage 1 (data pairing): done, 20,088 of 20,863 cards matched to the API (99%)
+
+Stage 2 (training): done, 98.4% accuracy picking the correct card out of
+the full catalog, tested against simulated phone-photo distortion (glare,
+blur, lighting)
+
+Stage 3 (index): done, all 20,863 cards fingerprinted and searchable,
+including the ~4% that didn't have confirmed API data
+
+Stage 4 (identify + backend): not built yet. Scripts/identifycard_pseudocode.txt
+is the logic spec for whoever builds the actual backend - how to
+fingerprint a photo, compare it to the index, and return a match.
+
+Haven't tested on real phone photos yet - the 98.4% is against simulated
+distortion of clean images, not actual photos. That's next.

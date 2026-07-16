@@ -1,0 +1,156 @@
+CARD IDENTIFICATION - BACKEND LOGIC (PSEUDOCODE)
+
+
+WHAT THIS IS
+
+This is the identification logic that needs to sit behind an API endpoint.
+It's written as language/framework-agnostic pseudocode - implement it
+however fits your stack (Flask, FastAPI, Express, whatever).
+
+
+WHAT ALREADY EXISTS (built, trained, ready to use)
+
+Three files, produced by the ML side of the project:
+
+encoder_best.keras
+  Trained model. Turns a 224x224 card image into a 256-number "fingerprint".
+  TensorFlow/Keras model file.
+
+card_index_embeddings.npy
+  Fingerprint for every known card.
+  float32 array, shape (N, 256), N is about 20,863.
+
+card_index_metadata.csv
+  What each fingerprint actually is.
+  N rows, SAME ORDER as the embeddings - row i in the CSV is row i in the
+  array.
+
+card_index_metadata.csv columns:
+  card_id, name, set_folder, api_set_id, api_set_name, number, rarity,
+  image_path, matched
+  (matched is the string "True"/"False" - a card is True if its name/set/etc
+  are API-confirmed, False if it's a best-effort guess from a filename)
+
+
+WHAT YOU'RE BUILDING
+
+An endpoint (e.g. POST /identify) that:
+1. Loads the model + index once, when the service starts
+2. Accepts a photo on each request
+3. Returns which card it is, plus a confidence signal
+
+
+THINGS THAT MUST BE EXACTLY RIGHT
+
+Preprocessing has to match training exactly, or similarity scores become
+meaningless. The exact steps:
+  1. Resize the image to 224x224.
+  2. Pass the raw 0-255 pixel values through ResNet50's specific
+     preprocessing - NOT a plain 0-1 normalize. If you're in Python/Keras,
+     just call keras.applications.resnet50.preprocess_input(image) directly
+     rather than reimplementing it. If you're in a different stack: it
+     converts RGB to BGR, then subtracts the fixed per-channel means
+     103.939, 116.779, 123.68 (in that BGR order) - no scaling, input must
+     stay in 0-255 range, not 0-1.
+
+The embeddings are unit-length, so comparing a new photo's fingerprint
+against the index is just a dot product - no need for a similarity library
+or fancy math.
+
+Load once, not per-request. Loading the model takes a few seconds; every
+request after that should be fast (well under a second). If a request is
+slow every time, something's reloading that shouldn't be.
+
+Return more than just the top match. The gap between the #1 and #2 result
+matters - a big gap means a confident match, a small gap usually means two
+near-identical card variants (e.g. reprints) and the frontend may want to
+show both.
+
+
+PSEUDOCODE
+
+STARTUP - runs ONCE
+
+model            = load_model("Models/encoder_best.keras")
+index_embeddings = load_array("Reference/card_index_embeddings.npy")   # (N, 256)
+index_metadata   = load_csv("Reference/card_index_metadata.csv")       # N rows, same order
+
+keep model, index_embeddings, index_metadata in memory for the life of the
+process
+
+
+ENDPOINT: POST /identify
+input:  one uploaded photo
+output: JSON - best match + alternates + confidence
+
+function handle_identify(uploaded_photo):
+
+    if uploaded_photo is missing or unreadable:
+        return error(400, "no valid photo provided")
+
+    # 1. preprocess - MUST match how the index images were processed
+    image = decode_image(uploaded_photo)
+    image = resize(image, 224, 224)
+    image = resnet50_preprocess(image)      # RGB->BGR, subtract [103.939, 116.779, 123.68]; NOT a 0-1 normalize
+    image = add_batch_dimension(image)      # -> (1, 224, 224, 3)
+
+    # 2. fingerprint the photo
+    query_fingerprint = model.predict(image)[0]     # (256,), already unit-length
+
+    # 3. compare against every known card at once
+    similarities = index_embeddings DOT query_fingerprint     # (N,) - one score per card
+
+    # 4. take the top few, not just #1
+    TOP_K = 5
+    top_indices = indices_of_highest(similarities, TOP_K)
+
+    results = []
+    for i in top_indices:
+        card = index_metadata[i]
+        results.append({
+            name:       card.name,
+            set:        card.api_set_name,
+            number:     card.number,
+            rarity:     card.rarity,
+            similarity: similarities[i],
+            verified:   card.matched == "True",
+        })
+
+    # 5. rough confidence signal from the gap between #1 and #2
+    gap = results[0].similarity - results[1].similarity
+    confidence = "clear" if gap >= 0.05 else "close_call"   # threshold not yet tuned on real photos
+
+    # 6. respond
+    return {
+        best_match: results[0],
+        confidence: confidence,
+        alternates: results[1:],
+    }
+
+
+SUGGESTED RESPONSE SHAPE
+
+{
+  "best_match": {
+    "name": "Charizard",
+    "set": "Base",
+    "number": "4",
+    "rarity": "Rare Holo",
+    "similarity": 0.94,
+    "verified": true
+  },
+  "confidence": "clear",
+  "alternates": [
+    { "name": "Charizard (reprint)", "similarity": 0.71 }
+  ]
+}
+
+
+TESTING WITHOUT A FRONTEND YET
+
+Hit the endpoint directly with any image file (curl, Postman, a two-line
+script) before wiring up the app - confirms the model/index load correctly
+and a request returns a sane result. Testing with a photo of a card that's
+already in the dataset should return that exact card with similarity very
+close to 1.0; that only proves the plumbing works, not real-world accuracy -
+save an actual phone photo for the real test.
