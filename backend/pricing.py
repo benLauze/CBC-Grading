@@ -47,7 +47,6 @@ def get_prices_from_ocr(card_number, card_name=None):
     return get_psa_prices(card_id)
 
 def to_results_price(pricing, grade):
-    # Map PSA prices to the shape ResultsScreen expects
     market = pricing.get(f"psa{grade}", {}).get("ebay")
     low = pricing.get("psa8", {}).get("ebay")
     high = pricing.get("psa10", {}).get("ebay")

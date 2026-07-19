@@ -45,7 +45,6 @@ async def process_card(
     population_total = 1000
     population_this_grade = 100
 
-    # ⭐⭐ >>> PASTE YOUR RESULT BLOCK RIGHT HERE <<< ⭐⭐
     result = {
         "name": ident["name"],
         "set": ident["set"],
