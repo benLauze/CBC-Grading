@@ -14,7 +14,7 @@ export default function ScanScreen({ navigation, route }) {
     if (isFront) {
       navigation.navigate("ScanBack", { side: "back", existingFront: capturedImage, existingBack });
     } else {
-      navigation.navigate("Home", { frontImage, backImage });
+      navigation.navigate("Processing", { frontImage, backImage });
     }
   };
 
