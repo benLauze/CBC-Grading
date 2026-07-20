@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, Animated, Easing, SafeAreaView } from "react-native";
 import { colors } from "../theme";
+//CHANGE MADE
+import { processCard } from "../api";
 
 const STEPS = [
   "Analyzing card surfaces...",
@@ -22,9 +24,25 @@ export default function ProcessingScreen({ navigation, route }) {
     ).start();
   }, []);
 
+  //useEffect(() => {
+    //CHANGE MADE
+    //const timers = STEPS.map((_, i) => setTimeout(() => setCurrentStep(i), i * 1100));
+    //return () => timers.forEach(clearTimeout);
+  //}, []);
+
+  // Change Made
   useEffect(() => {
-    const timers = STEPS.map((_, i) => setTimeout(() => setCurrentStep(i), i * 1100));
-    return () => timers.forEach(clearTimeout);
+    let step = 0;
+    const interval = setInterval(() => {
+      step++;
+      if (step < STEPS.length) {
+        setCurrentStep(step);
+      } else {
+        clearInterval(interval);
+      }
+    }, 1100);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -44,21 +62,26 @@ export default function ProcessingScreen({ navigation, route }) {
         // const result = await res.json();
         // ─────────────────────────────────────────────────────────
 
-        await new Promise(r => setTimeout(r, 4500)); // mock delay
+        //await new Promise(r => setTimeout(r, 4500)); // mock delay
 
-        const result = {
-          name: "Charizard VMAX",
-          set: "Sword & Shield — Champion's Path",
-          setCode: "SWSH035",
-          number: "074/073",
-          rarity: "Secret Rare",
-          grade: 9,
-          subgrades: { centering: 9.5, corners: 9.0, edges: 8.5, surface: 9.5 },
-          price: { market: 189.99, low: 145.00, high: 250.00 },
-          population: { total: 2847, thisGrade: 412 },
-        };
+        //const result = {
+          //name: "Charizard VMAX",
+          //set: "Sword & Shield — Champion's Path",
+          //setCode: "SWSH035",
+          //number: "074/073",
+          //rarity: "Secret Rare",
+          //grade: 9,
+          //subgrades: { centering: 9.5, corners: 9.0, edges: 8.5, surface: 9.5 },
+          //price: { market: 189.99, low: 145.00, high: 250.00 },
+          //population: { total: 2847, thisGrade: 412 },
+        //};
 
+        //navigation.navigate("Results", { result, frontImage, backImage });
+
+        //CHANGE MADE
+        const result = await processCard(frontImage, backImage);
         navigation.navigate("Results", { result, frontImage, backImage });
+
       } catch (err) {
         setError(err.message || "Analysis failed. Please try again.");
       }
