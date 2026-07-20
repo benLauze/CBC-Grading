@@ -1,6 +1,8 @@
 import json
 import os
-import google.genai as genai
+import io
+from google import genai
+from google.genai import types
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MODEL_NAME = "gemini-3.5-flash"
@@ -57,28 +59,35 @@ def _map_psa_equivalent(final_grade: float) -> str:
 def _clamp_penalty(value: float) -> float:
     return max(0.0, min(2.0, float(value)))
 
-def call_gemini(prompt: str, front_image, back_image):
+def call_gemini(prompt, front_image, back_image):
+    front_buffer = io.BytesIO()
+    front_image.save(front_buffer, format="JPEG")
+    front_bytes = front_buffer.getvalue()
+
+    back_buffer = io.BytesIO()
+    back_image.save(back_buffer, format="JPEG")
+    back_bytes = back_buffer.getvalue()
+
     response = client.models.generate_content(
         model=MODEL_NAME,
         contents=[
-            {"role": "user", "parts": [{"text": prompt}]},
-            {"role": "user", "parts": [{"image": front_image}]},
-            {"role": "user", "parts": [{"image": back_image}]},
+            prompt,
+            types.Part.from_bytes(data=front_bytes, mime_type="image/jpeg"),
+            types.Part.from_bytes(data=back_bytes, mime_type="image/jpeg"),
         ],
-        config={"response_mime_type": "application/json"}
+        config={"response_mime_type": "application/json"},
     )
 
-    raw = response.text
-
-    try:
-        return json.loads(raw)
-    except Exception:
-        cleaned = raw.strip().replace("```json", "").replace("```", "")
-        return json.loads(cleaned)
+    return response.text
 
 def grade_card_with_gemini(front_image, back_image) -> dict:
     prompt = _build_prompt()
-    gemini_output = call_gemini(prompt, front_image, back_image)
+    raw_text = call_gemini(prompt, front_image, back_image)
+
+    try:
+        gemini_output = json.loads(raw_text)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Gemini did not return valid JSON: {raw_text!r}") from e
 
     centering_penalty = _clamp_penalty(gemini_output.get("centering_penalty", 0.0))
     whitening_penalty = _clamp_penalty(gemini_output.get("whitening_penalty", 0.0))

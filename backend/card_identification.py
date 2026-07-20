@@ -30,7 +30,8 @@ def identify_card(image: Image.Image):
 
     return {
         "name": card["name"],
-        "set": card["set"],
+        "set": card.get("api_set_name") or card.get("set_folder") or "Unknown",
         "number": card["number"],
+        "rarity": card.get("rarity", "Unknown"),
         "similarity": float(sims[idx]),
     }
