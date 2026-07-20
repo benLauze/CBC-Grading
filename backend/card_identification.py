@@ -2,6 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from keras.models import load_model
+from keras.applications.resnet50 import preprocess_input
 from PIL import Image
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -16,15 +17,13 @@ embeddings = np.load(EMBED_PATH)
 metadata = pd.read_csv(META_PATH)
 
 def identify_card(image: Image.Image):
-    img = image.resize((224, 224))
-    arr = np.array(img) / 255.0
+    img = image.convert("RGB").resize((224, 224))
+    arr = np.array(img).astype("float32")
+    arr = preprocess_input(arr)
     arr = np.expand_dims(arr, axis=0)
 
     emb = model.predict(arr)[0]
-
-    sims = embeddings @ emb / (
-        np.linalg.norm(embeddings, axis=1) * np.linalg.norm(emb)
-    )
+    sims = embeddings @ emb
     idx = int(np.argmax(sims))
     card = metadata.iloc[idx]
 
