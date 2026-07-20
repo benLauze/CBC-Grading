@@ -1,11 +1,12 @@
 import json
 import os
 import io
+import time
 from google import genai
 from google.genai import types
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-MODEL_NAME = "gemini-3.5-flash"
+MODEL_NAME = "gemini-3.1-flash-lite"
 
 def _build_prompt():
     return (
@@ -80,9 +81,20 @@ def call_gemini(prompt, front_image, back_image):
 
     return response.text
 
+def call_gemini_with_retry(prompt, front_image, back_image, retries=3, delay=1.5):
+    for attempt in range(retries):
+        try:
+            return call_gemini(prompt, front_image, back_image)
+        except Exception as e:
+            # Retry only on Gemini overload
+            if "503" in str(e) and attempt < retries - 1:
+                time.sleep(delay)
+                continue
+            raise
+
 def grade_card_with_gemini(front_image, back_image) -> dict:
     prompt = _build_prompt()
-    raw_text = call_gemini(prompt, front_image, back_image)
+    raw_text = call_gemini_with_retry(prompt, front_image, back_image)
 
     try:
         gemini_output = json.loads(raw_text)
