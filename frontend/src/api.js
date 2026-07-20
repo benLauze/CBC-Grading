@@ -13,7 +13,9 @@ export async function processCard(frontImageUri, backImageUri) {
     type: "image/jpeg",
   });
 
-  const res = await fetch("http://10.220.80.237:8000/process-card", {
+  const API_URL = process.env.EXPO_PUBLIC_API_URL;
+
+  const res = await fetch(`${API_URL}/process-card`, {
     method: "POST",
     body: formData,
   });
